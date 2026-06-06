@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ADM Narammala </title>
+    <title>ADM Narammala - Tharidu Nimesh</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0d1117">
+    <!-- jsPDF Library for Premium PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
@@ -15,130 +16,166 @@
             padding: 0;
         }
         body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
+            background: radial-gradient(circle at top, #161b22 0%, #0d1117 100%);
+            color: #c9d1d9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 25px;
+            min-height: 100vh;
         }
         header {
             text-align: center;
-            border-bottom: 2px solid #ffffff;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(240, 246, 252, 0.1);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
         }
         header h1 {
-            font-size: 2rem;
-            letter-spacing: 2px;
+            font-size: 2.2rem;
+            color: #ffffff;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
         }
         header p {
             font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 5px;
+            color: #8b949e;
+            margin-top: 6px;
+            font-weight: 300;
         }
         .nav-tabs {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 35px;
             flex-wrap: wrap;
         }
         .tab-btn {
-            background-color: #000000;
-            color: #ffffff;
-            border: 1px solid #ffffff;
-            padding: 10px 20px;
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            padding: 12px 24px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
             text-transform: uppercase;
+            font-size: 0.9rem;
         }
         .tab-btn.active, .tab-btn:hover {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #f0f6fc;
+            color: #0d1117;
+            border-color: #f0f6fc;
+            box-shadow: 0 4px 12px rgba(255,255,255,0.15);
         }
         .tab-content {
             display: none;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            border: 1px solid #ffffff;
-            padding: 25px;
-            border-radius: 0px;
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
         .tab-content.active {
             display: block;
         }
+        h2 {
+            color: #ffffff;
+            font-weight: 500;
+            border-left: 4px solid #ffffff;
+            padding-left: 12px;
+            margin-bottom: 25px;
+        }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: #f0f6fc;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
         }
         input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select {
             width: 100%;
-            padding: 12px;
-            background-color: #000000;
-            border: 1px solid #ffffff;
+            padding: 14px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
             color: #ffffff;
             font-size: 1rem;
+            border-radius: 6px;
             outline: none;
+            transition: border-color 0.2s;
         }
-        input:focus, select:focus {
-            box-shadow: 0 0 5px #ffffff;
+        input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+            border-color: #8b949e;
         }
         .checkbox-group {
             display: flex;
-            gap: 15px;
+            gap: 18px;
             flex-wrap: wrap;
-            margin-top: 5px;
+            margin-top: 8px;
         }
         .checkbox-item {
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            background: #21262d;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid rgba(240, 246, 252, 0.05);
+            transition: all 0.2s ease;
         }
         .checkbox-item input {
             accent-color: #ffffff;
             width: 18px;
             height: 18px;
         }
+        /* පන්ති එකක් හෝ කිහිපයක් ක්ලික් කල විට Highlight වන නව CSS කොටස */
+        .checkbox-item:has(input:checked) {
+            background-color: #f0f6fc;
+            color: #0d1117;
+            border-color: #f0f6fc;
+            font-weight: bold;
+        }
+        .checkbox-item:has(input:checked) input {
+            accent-color: #0d1117;
+        }
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
         .btn-submit {
             background-color: #ffffff;
-            color: #000000;
+            color: #0d1117;
             border: 1px solid #ffffff;
-            padding: 12px 24px;
+            padding: 14px 28px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
+            border-radius: 6px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
         .btn-submit:hover {
-            background-color: #000000;
+            background-color: #0d1117;
             color: #ffffff;
+            border-color: #8b949e;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .btn-secondary {
+            background-color: #21262d;
+            color: #ffffff;
+            border: 1px solid #30363d;
         }
-        th, td {
-            border: 1px solid #ffffff;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #ffffff;
-            color: #000000;
-            text-transform: uppercase;
-            font-size: 0.85rem;
+        .btn-secondary:hover {
+            background-color: #30363d;
+            border-color: #8b949e;
         }
         .dashboard-grid {
             display: grid;
@@ -147,25 +184,29 @@
             margin-bottom: 30px;
         }
         .card {
-            border: 1px solid #ffffff;
-            padding: 20px;
+            background: #161b22;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            padding: 22px;
             text-align: center;
+            border-radius: 8px;
         }
         .card h3 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0.8;
+            margin-bottom: 12px;
+            color: #8b949e;
             letter-spacing: 1px;
         }
         .card p {
             font-size: 1.8rem;
-            font-weight: bold;
+            font-weight: 700;
+            color: #ffffff;
         }
         .status-msg {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
     </style>
 </head>
@@ -173,19 +214,19 @@
 
     <header>
         <h1>Tharidu Nimesh</h1>
-        <p>Science Class Management System | ADM Class Portal</p>
+        <p>Science & Chemistry Class Management System | ADM Narammala</p>
     </header>
 
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
-        <button class="tab-btn" onclick="switchTab('register')">Registration</button>
-        <button class="tab-btn" onclick="switchTab('attendance')">Attendance & Fees</button>
-        <button class="tab-btn" onclick="switchTab('expenses')">Expenses</button>
+        <button class="tab-btn active" onclick="switchTab(event, 'dashboard')">Dashboard</button>
+        <button class="tab-btn" onclick="switchTab(event, 'register')">Registration</button>
+        <button class="tab-btn" onclick="switchTab(event, 'attendance')">Attendance & Fees</button>
+        <button class="tab-btn" onclick="switchTab(event, 'expenses')">Expenses</button>
     </div>
 
+    <!-- DASHBOARD TAB -->
     <div id="dashboard" class="tab-content active">
         <h2>Financial Summary & Reports</h2>
-        <br>
         <div class="dashboard-grid">
             <div class="card">
                 <h3>Daily Gross Income</h3>
@@ -206,22 +247,22 @@
         </div>
 
         <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="card" style="border-style: dashed;">
+            <div class="card" style="border-color: rgba(255,255,255,0.2);">
                 <h3>Institution Share (25%)</h3>
-                <p>Rs. <span id="lbl-inst-share">0</span></p>
+                <p style="color: #ff7b72;">Rs. <span id="lbl-inst-share">0</span></p>
             </div>
-            <div class="card" style="border-style: dashed;">
+            <div class="card" style="border-color: rgba(255,255,255,0.2);">
                 <h3>Tharidu Sir's Net Share (75%)</h3>
-                <p>Rs. <span id="lbl-sir-share">0</span></p>
+                <p style="color: #58a6ff;">Rs. <span id="lbl-sir-share">0</span></p>
             </div>
         </div>
 
         <button class="btn-submit" onclick="downloadPaysheetPDF()">Download Complete Paysheet Report (PDF)</button>
     </div>
 
+    <!-- REGISTRATION TAB -->
     <div id="register" class="tab-content">
         <h2>Student Registration</h2>
-        <br>
         <form id="reg-form" onsubmit="handleRegistration(event)">
             <div class="form-group">
                 <label>Student Name</label>
@@ -236,12 +277,13 @@
                 <input type="text" id="reg-address" required placeholder="Enter Address">
             </div>
             <div class="form-group">
-                <label>Select Grades / Classes</label>
+                <label>Select Grades / Classes (එකකට වඩා තෝරාගත හැක)</label>
                 <div class="checkbox-group">
                     <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="09"> Grade 09</label>
                     <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="10"> Grade 10</label>
                     <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="11"> Grade 11</label>
                     <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="11 Revision"> 11 Revision</label>
+                    <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="2027 A/L Chemistry"> 2027 A/L Chemistry</label>
                 </div>
             </div>
             <button type="submit" class="btn-submit">Register Student & Save to Cloud</button>
@@ -249,13 +291,17 @@
         <div id="reg-status" class="status-msg"></div>
     </div>
 
+    <!-- ATTENDANCE & FEES TAB -->
     <div id="attendance" class="tab-content">
         <h2>Mark Attendance & Fees</h2>
-        <br>
-        <form id="fee-form" onsubmit="handleAttendanceFee(event)">
+        <form id="fee-form" onsubmit="event.preventDefault();">
             <div class="form-group">
-                <label>Student Contact/ID</label>
-                <input type="text" id="fee-search" required placeholder="Enter Student Contact Number to identify">
+                <label>Select Log Date (දිනය තෝරන්න)</label>
+                <input type="date" id="fee-date" required>
+            </div>
+            <div class="form-group">
+                <label>Student Name or Contact Number (නම හෝ දුරකථන අංකය)</label>
+                <input type="text" id="fee-search" required placeholder="Type student full name or contact number...">
             </div>
             <div class="form-group">
                 <label>Select Attending Class</label>
@@ -265,20 +311,25 @@
                     <option value="11">Grade 11 (Theory)</option>
                     <option value="11 Revision Only">11 Revision (Only)</option>
                     <option value="11 Revision Combo">11 Revision (For Theory Students)</option>
+                    <option value="2027 A/L Chemistry">2027 A/L Chemistry</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Fee Amount (Rs.)</label>
                 <input type="number" id="fee-amount" value="1200" readonly>
             </div>
-            <button type="submit" class="btn-submit">Mark Present & Record Payment</button>
+            
+            <div class="btn-container">
+                <button type="button" class="btn-submit btn-secondary" onclick="processAttendanceOnly()">Mark Attendance Only</button>
+                <button type="button" class="btn-submit" onclick="processFeePaymentOnly()">Record Fee Payment Only</button>
+            </div>
         </form>
         <div id="fee-status" class="status-msg"></div>
     </div>
 
+    <!-- EXPENSES TAB -->
     <div id="expenses" class="tab-content">
         <h2>Daily Expenses Logger</h2>
-        <br>
         <form id="expense-form" onsubmit="handleExpense(event)">
             <div class="form-group">
                 <label>Expense Description</label>
@@ -294,7 +345,7 @@
     </div>
 
     <script>
-        // Integrated Google Apps Script Web App URL
+        // Pre-configured App Script URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6yNXeXo9-MjyLcXUzx-ngflzz_D6vux7edrDZJwTvayHN5kYMNiHAuR9nyj6sg4gNTA/exec';
 
         let appData = {
@@ -304,7 +355,14 @@
             monthlyExpense: 0
         };
 
-        function switchTab(tabId) {
+        // Initialize today's date in picker
+        window.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('fee-date').value = today;
+        });
+
+        // Event එක නිවැරදිව හසුරුවන පරිදි switchTab ශ්‍රිතය සකසා ඇත
+        function switchTab(event, tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
@@ -315,9 +373,13 @@
         function autoCalculateFee() {
             const selectedClass = document.getElementById('fee-class').value;
             let amount = 1200; 
+            
             if (selectedClass === "11 Revision Combo") {
                 amount = 1700; 
+            } else if (selectedClass === "2027 A/L Chemistry") {
+                amount = 2800;
             }
+            
             document.getElementById('fee-amount').value = amount;
         }
 
@@ -336,7 +398,7 @@
 
         async function sendToCloud(action, payload) {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
@@ -352,7 +414,8 @@
         async function handleRegistration(e) {
             e.preventDefault();
             const status = document.getElementById('reg-status');
-            status.innerText = "Processing...";
+            status.style.color = "#ffffff";
+            status.innerText = "Processing Cloud Sync...";
 
             const name = document.getElementById('reg-name').value;
             const contact = document.getElementById('reg-contact').value;
@@ -361,6 +424,7 @@
 
             if(grades.length === 0) {
                 status.innerText = "Please select at least one grade.";
+                status.style.color = "#ff7b72";
                 return;
             }
 
@@ -368,44 +432,76 @@
             const success = await sendToCloud('register', student);
 
             if(success) {
-                status.innerText = "Successfully Registered & Synced with Cloud!";
+                status.innerText = "Successfully Registered & Synced with Google Sheet!";
+                status.style.color = "#58a6ff";
                 document.getElementById('reg-form').reset();
-            } else {
-                status.innerText = "Saved locally, pending cloud connection.";
             }
         }
 
-        async function handleAttendanceFee(e) {
-            e.preventDefault();
+        async function processAttendanceOnly() {
             const status = document.getElementById('fee-status');
-            status.innerText = "Processing...";
+            const searchVal = document.getElementById('fee-search').value;
+            const selectedDate = document.getElementById('fee-date').value;
+            const className = document.getElementById('fee-class').value;
 
-            const contact = document.getElementById('fee-search').value;
+            if(!searchVal || !selectedDate) {
+                status.innerText = "Please fill student details and date.";
+                status.style.color = "#ff7b72";
+                return;
+            }
+
+            status.innerText = "Marking Attendance...";
+            status.style.color = "#ffffff";
+
+            const tx = { contact: searchVal, className: className, fee: "ATTENDANCE_ONLY", timestamp: selectedDate };
+            const success = await sendToCloud('attendance_fee', tx);
+
+            if(success) {
+                status.innerText = "Attendance successfully marked for " + searchVal;
+                status.style.color = "#58a6ff";
+                document.getElementById('fee-search').value = "";
+            }
+        }
+
+        async function processFeePaymentOnly() {
+            const status = document.getElementById('fee-status');
+            const searchVal = document.getElementById('fee-search').value;
+            const selectedDate = document.getElementById('fee-date').value;
             const className = document.getElementById('fee-class').value;
             const fee = parseFloat(document.getElementById('fee-amount').value);
 
-            const tx = { contact, className, fee, timestamp: new Date().toLocaleString() };
+            if(!searchVal || !selectedDate) {
+                status.innerText = "Please fill student details and date.";
+                status.style.color = "#ff7b72";
+                return;
+            }
+
+            status.innerText = "Processing Fee Payment...";
+            status.style.color = "#ffffff";
+
+            const tx = { contact: searchVal, className: className, fee: fee, timestamp: selectedDate };
             const success = await sendToCloud('attendance_fee', tx);
 
             if(success) {
                 appData.dailyIncome += fee;
                 appData.monthlyIncome += fee;
                 updateDashboardDOM();
-                status.innerText = "Attendance marked & Fee payment complete.";
-                document.getElementById('fee-form').reset();
-                autoCalculateFee();
+
+                status.innerText = "Fee payment parsed & saved to Cloud storage.";
+                status.style.color = "#58a6ff";
+                document.getElementById('fee-search').value = "";
             }
         }
 
         async function handleExpense(e) {
             e.preventDefault();
             const status = document.getElementById('expense-status');
-            status.innerText = "Logging...";
+            status.innerText = "Logging Expense...";
 
             const desc = document.getElementById('exp-desc').value;
             const amount = parseFloat(document.getElementById('exp-amount').value);
 
-            const expense = { desc, amount, timestamp: new Date().toLocaleString() };
+            const expense = { desc, amount, timestamp: new Date().toLocaleDateString() };
             const success = await sendToCloud('expense', expense);
 
             if(success) {
@@ -421,14 +517,14 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFillColor(0, 0, 0);
+            doc.setFillColor(13, 17, 23);
             doc.rect(0, 0, 210, 40, 'F');
             
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(22);
             doc.text("THARIDU NIMESH - SCIENCE CLASS", 15, 25);
             doc.setFontSize(10);
-            doc.text("ADM INSTITUTION MANAGEMENT PAY_SHEET", 15, 33);
+            doc.text("ADM NARAMMALA MANAGEMENT PAY_SHEET", 15, 33);
 
             doc.setTextColor(0, 0, 0);
             doc.setFontSize(14);
@@ -446,13 +542,12 @@
                     ['Daily Operations Cost', `Rs. ${appData.dailyExpense}.00`],
                     ['Gross Monthly Revenue', `Rs. ${appData.monthlyIncome}.00`],
                     ['Gross Monthly Cost', `Rs. ${appData.monthlyExpense}.00`],
-                    ['Net Monthly Revenue (Before Inst. Share)', `Rs. ${netProfit}.00`],
+                    ['Net Monthly Revenue', `Rs. ${netProfit}.00`],
                     ['Institution Commission Contribution (25%)', `Rs. ${instShare}.00`],
                     ['Tharidu Nimesh Sir Net Payable (75%)', `Rs. ${sirShare}.00`]
                 ],
                 theme: 'striped',
-                headStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] },
-                styles: { font: 'courier', lineColor: [0, 0, 0], lineWidth: 0.5 }
+                headStyles: { fillColor: [13, 17, 23], textColor: [255, 255, 255] }
             });
 
             doc.save(`Tharidu_Sir_Paysheet_${new Date().toISOString().slice(0,10)}.pdf`);
@@ -460,11 +555,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(reg => {
-                    console.log('ServiceWorker initialization success: ', reg.scope);
-                }).catch(err => {
-                    console.error('ServiceWorker setup failed: ', err);
-                });
+                navigator.serviceWorker.register('sw.js').catch(err => console.error(err));
             });
         }
     </script>
