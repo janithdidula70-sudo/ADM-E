@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADM Narammala</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#6a11cb">
+    <meta name="theme-color" content="#000000">
     <!-- jsPDF Library for Premium PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
@@ -16,17 +16,16 @@
             padding: 0;
         }
         body {
-            /* වර්ණවත් Modern Gradient පසුබිම */
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            /* Pure Black & White High Contrast Aesthetic */
+            background-color: #000000;
             color: #ffffff;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             padding: 25px;
             min-height: 100vh;
-            background-attachment: fixed;
         }
         header {
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 2px solid #ffffff;
             padding-bottom: 25px;
             margin-bottom: 35px;
         }
@@ -35,11 +34,10 @@
             color: #ffffff;
             letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         header p {
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.85);
+            color: #cccccc;
             margin-top: 6px;
             font-weight: 300;
         }
@@ -51,47 +49,41 @@
             flex-wrap: wrap;
         }
         .tab-btn {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: #000000;
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid #ffffff;
             padding: 12px 24px;
             cursor: pointer;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 4px;
             transition: all 0.2s ease-in-out;
             text-transform: uppercase;
             font-size: 0.9rem;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
         }
         .tab-btn.active, .tab-btn:hover {
             background-color: #ffffff;
-            color: #2575fc;
-            border-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #000000;
         }
         .tab-content {
             display: none;
             max-width: 950px;
             margin: 0 auto;
-            /* Premium Glassmorphism Interface */
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: #000000;
+            border: 2px solid #ffffff;
             padding: 30px;
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
         }
         .tab-content.active {
             display: block;
         }
         h2 {
             color: #ffffff;
-            font-weight: 500;
-            border-left: 4px solid #ffffff;
+            font-weight: 600;
+            border-left: 5px solid #ffffff;
             padding-left: 12px;
             margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 1.4rem;
         }
         .form-group {
             margin-bottom: 22px;
@@ -102,32 +94,30 @@
             font-weight: 600;
             color: #ffffff;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
         }
         input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select {
             width: 100%;
             padding: 14px;
-            background-color: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background-color: #000000;
+            border: 2px solid #ffffff;
             color: #ffffff;
             font-size: 1rem;
-            border-radius: 6px;
+            border-radius: 4px;
             outline: none;
             transition: all 0.2s;
         }
         input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: #666666;
         }
-        /* Select Dropdown එක ඇතුලත පෙනුම සකස් කිරීම */
         select option {
-            background-color: #2575fc;
+            background-color: #000000;
             color: #ffffff;
         }
         input:focus, select:focus {
-            border-color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            background-color: #111111;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
         .checkbox-group {
             display: flex;
@@ -140,27 +130,21 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.08);
+            background: #000000;
             padding: 8px 16px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            border: 2px solid #ffffff;
             transition: all 0.2s ease;
         }
         .checkbox-item input {
-            accent-color: #ffffff;
+            accent-color: #000000;
             width: 18px;
             height: 18px;
         }
-        /* පන්ති එකක් හෝ කිහිපයක් ක්ලික් කල විට පෙනෙන වර්ණවත් Highlight ස්වභාවය */
         .checkbox-item:has(input:checked) {
             background-color: #ffffff;
-            color: #6a11cb;
-            border-color: #ffffff;
+            color: #000000;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        .checkbox-item:has(input:checked) input {
-            accent-color: #6a11cb;
         }
         .btn-container {
             display: flex;
@@ -169,33 +153,29 @@
         }
         .btn-submit {
             background-color: #ffffff;
-            color: #6a11cb;
-            border: 1px solid #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
             padding: 14px 28px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            border-radius: 6px;
+            border-radius: 4px;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
         .btn-submit:hover {
-            background-color: transparent;
+            background-color: #000000;
             color: #ffffff;
-            border-color: #ffffff;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
         }
         .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: #000000;
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: none;
+            border: 2px solid #ffffff;
         }
         .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-color: #ffffff;
+            background-color: #ffffff;
+            color: #000000;
         }
         .dashboard-grid {
             display: grid;
@@ -204,19 +184,17 @@
             margin-bottom: 30px;
         }
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #000000;
+            border: 2px solid #ffffff;
             padding: 22px;
             text-align: center;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            border-radius: 4px;
         }
         .card h3 {
             font-size: 0.85rem;
             text-transform: uppercase;
             margin-bottom: 12px;
-            color: rgba(255, 255, 255, 0.75);
+            color: #aaaaaa;
             letter-spacing: 1px;
         }
         .card p {
@@ -269,13 +247,13 @@
         </div>
 
         <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="card" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15);">
+            <div class="card">
                 <h3>Institution Share (25%)</h3>
-                <p style="color: #ffb3b3; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">Rs. <span id="lbl-inst-share">0</span></p>
+                <p>Rs. <span id="lbl-inst-share">0</span></p>
             </div>
-            <div class="card" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15);">
+            <div class="card">
                 <h3>Tharidu Sir's Net Share (75%)</h3>
-                <p style="color: #b3d9ff; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">Rs. <span id="lbl-sir-share">0</span></p>
+                <p>Rs. <span id="lbl-sir-share">0</span></p>
             </div>
         </div>
 
@@ -299,7 +277,7 @@
                 <input type="text" id="reg-address" required placeholder="Enter Address">
             </div>
             <div class="form-group">
-                <label>Select Grades / Classes (එකකට වඩා තෝරාගත හැක)</label>
+                <label>Select Grades / Classes</label>
                 <div class="checkbox-group">
                     <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="09"> Grade 09</label>
                     <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="10"> Grade 10</label>
@@ -318,12 +296,14 @@
         <h2>Mark Attendance & Fees</h2>
         <form id="fee-form" onsubmit="event.preventDefault();">
             <div class="form-group">
-                <label>Select Log Date (දිනය තෝරන්න)</label>
+                <label>Select Log Date</label>
                 <input type="date" id="fee-date" required>
             </div>
             <div class="form-group">
-                <label>Student Name or Contact Number (නම හෝ දුරකථන අංකය)</label>
-                <input type="text" id="fee-search" required placeholder="Type student full name or contact number...">
+                <label>Student Name or Contact Number</label>
+                <!-- Datalist එක සම්බන්ධ කර ඇත -->
+                <input type="text" id="fee-search" list="students-list" required placeholder="Type student name or contact number...">
+                <datalist id="students-list"></datalist>
             </div>
             <div class="form-group">
                 <label>Select Attending Class</label>
@@ -367,7 +347,6 @@
     </div>
 
     <script>
-        // Pre-configured App Script URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6yNXeXo9-MjyLcXUzx-ngflzz_D6vux7edrDZJwTvayHN5kYMNiHAuR9nyj6sg4gNTA/exec';
 
         let appData = {
@@ -377,11 +356,48 @@
             monthlyExpense: 0
         };
 
-        // Initialize today's date in picker
+        // Google Sheet එකෙන් ගන්නා සිසුන්ගේ ලැයිස්තුව මතක තබා ගැනීමට
+        let globalStudentsList = [];
+
         window.addEventListener('DOMContentLoaded', () => {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('fee-date').value = today;
+            // ඇප් එක Load වෙද්දීම දැනට ඉන්න සිසුන් ලැයිස්තුව Sheet එකෙන් කියවා ගනී
+            fetchRegisteredStudents();
         });
+
+        // Google Sheet එකෙන් සිසුන්ගේ දත්ත කියවා Datalist එකට එකතු කිරීම
+        async function fetchRegisteredStudents() {
+            try {
+                // සටහන: දත්ත කියවීමට GET රික්වෙස්ට් එකක් භාවිතා කරයි
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getStudents`);
+                const data = await response.json();
+                if (data && Array.isArray(data)) {
+                    globalStudentsList = data;
+                    const datalist = document.getElementById('students-list');
+                    datalist.innerHTML = ''; // පැරණි දත්ත මකා දැමීම
+                    
+                    data.forEach(student => {
+                        const option = document.createElement('option');
+                        // සෙවීමේ පහසුව සඳහා නම සහ දුරකථනය එකට පෙන්වයි
+                        option.value = `${student.name} (${student.contact})`;
+                        datalist.appendChild(option);
+                    });
+                    console.log("Students loaded successfully.");
+                }
+            } catch (error) {
+                console.error("Error fetching students list:", error);
+            }
+        }
+
+        // ඇතුලත් කල නම/දුරකථනය ලියාපදිංචි එකක්දැයි පරික්ෂා කිරීම
+        function validateStudent(inputVal) {
+            if (globalStudentsList.length === 0) return true; // Sheet එක හිස්නම් ඕනෑම කෙනෙක් ඇතුලත් කිරීමට ඉඩ දෙයි
+            return globalStudentsList.some(student => {
+                const formatStr = `${student.name} (${student.contact})`;
+                return inputVal === formatStr || inputVal === student.name || inputVal === student.contact;
+            });
+        }
 
         function switchTab(event, tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -394,13 +410,11 @@
         function autoCalculateFee() {
             const selectedClass = document.getElementById('fee-class').value;
             let amount = 1200; 
-            
             if (selectedClass === "11 Revision Combo") {
                 amount = 1700; 
             } else if (selectedClass === "2027 A/L Chemistry") {
                 amount = 2000;
             }
-            
             document.getElementById('fee-amount').value = amount;
         }
 
@@ -417,12 +431,13 @@
             document.getElementById('lbl-sir-share').innerText = sirShare.toFixed(2);
         }
 
+        // POST රික්වෙස්ට් හරහා දත්ත Google Sheet එකට බැකප් කිරීම (Cors Mode එක වෙනස් කර ඇත)
         async function sendToCloud(action, payload) {
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
+                // no-cors වෙනුවට නිවැරදිව දත්ත යැවීම තහවුරු කරගැනීමට සාමාන්‍ය fetch ක්‍රමය
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: JSON.stringify({ action: action, data: payload })
                 });
                 return true;
@@ -445,7 +460,7 @@
 
             if(grades.length === 0) {
                 status.innerText = "Please select at least one grade.";
-                status.style.color = "#ff7b72";
+                status.style.color = "#ff4444";
                 return;
             }
 
@@ -454,8 +469,9 @@
 
             if(success) {
                 status.innerText = "Successfully Registered & Synced with Google Sheet!";
-                status.style.color = "#d4edf9";
+                status.style.color = "#ffffff";
                 document.getElementById('reg-form').reset();
+                fetchRegisteredStudents(); // අලුත් ශිෂ්‍යයා ඩේටාලිස්ට් එකට එක් කරගැනීමට රීෆ්‍රෙෂ් කරයි
             }
         }
 
@@ -467,7 +483,14 @@
 
             if(!searchVal || !selectedDate) {
                 status.innerText = "Please fill student details and date.";
-                status.style.color = "#ff7b72";
+                status.style.color = "#ff4444";
+                return;
+            }
+
+            // ශිෂ්‍යයා ලියාපදිංචි දැයි පරික්ෂා කිරීමේ කොන්දේසිය
+            if (!validateStudent(searchVal)) {
+                status.innerText = "Error: This student is not registered in the system!";
+                status.style.color = "#ff4444";
                 return;
             }
 
@@ -479,7 +502,7 @@
 
             if(success) {
                 status.innerText = "Attendance successfully marked for " + searchVal;
-                status.style.color = "#d4edf9";
+                status.style.color = "#ffffff";
                 document.getElementById('fee-search').value = "";
             }
         }
@@ -493,7 +516,14 @@
 
             if(!searchVal || !selectedDate) {
                 status.innerText = "Please fill student details and date.";
-                status.style.color = "#ff7b72";
+                status.style.color = "#ff4444";
+                return;
+            }
+
+            // ශිෂ්‍යයා ලියාපදිංචි දැයි පරික්ෂා කිරීමේ කොන්දේසිය
+            if (!validateStudent(searchVal)) {
+                status.innerText = "Error: This student is not registered in the system!";
+                status.style.color = "#ff4444";
                 return;
             }
 
@@ -509,7 +539,7 @@
                 updateDashboardDOM();
 
                 status.innerText = "Fee payment parsed & saved to Cloud storage.";
-                status.style.color = "#d4edf9";
+                status.style.color = "#ffffff";
                 document.getElementById('fee-search').value = "";
             }
         }
@@ -531,7 +561,7 @@
                 appData.monthlyExpense += amount;
                 updateDashboardDOM();
                 status.innerText = "Expense logged accurately.";
-                status.style.color = "#d4edf9";
+                status.style.color = "#ffffff";
                 document.getElementById('expense-form').reset();
             }
         }
@@ -540,7 +570,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFillColor(106, 17, 203);
+            doc.setFillColor(0, 0, 0);
             doc.rect(0, 0, 210, 40, 'F');
             
             doc.setTextColor(255, 255, 255);
@@ -570,7 +600,7 @@
                     ['Tharidu Nimesh Sir Net Payable (75%)', `Rs. ${sirShare}.00`]
                 ],
                 theme: 'striped',
-                headStyles: { fillColor: [106, 17, 203], textColor: [255, 255, 255] }
+                headStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] }
             });
 
             doc.save(`Tharidu_Sir_Paysheet_${new Date().toISOString().slice(0,10)}.pdf`);
