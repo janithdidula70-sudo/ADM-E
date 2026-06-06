@@ -6,7 +6,6 @@
     <title>ADM Narammala</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
-    <!-- jsPDF Library for Premium PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
@@ -16,7 +15,7 @@
             padding: 0;
         }
         body {
-            /* Pure Black & White High Contrast Aesthetic */
+            /* High Contrast Pure Black & White Aesthetic */
             background-color: #000000;
             color: #ffffff;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -224,7 +223,6 @@
         <button class="tab-btn" onclick="switchTab(event, 'expenses')">Expenses</button>
     </div>
 
-    <!-- DASHBOARD TAB -->
     <div id="dashboard" class="tab-content active">
         <h2>Financial Summary & Reports</h2>
         <div class="dashboard-grid">
@@ -260,7 +258,6 @@
         <button class="btn-submit" onclick="downloadPaysheetPDF()">Download Complete Paysheet Report (PDF)</button>
     </div>
 
-    <!-- REGISTRATION TAB -->
     <div id="register" class="tab-content">
         <h2>Student Registration</h2>
         <form id="reg-form" onsubmit="handleRegistration(event)">
@@ -291,7 +288,6 @@
         <div id="reg-status" class="status-msg"></div>
     </div>
 
-    <!-- ATTENDANCE & FEES TAB -->
     <div id="attendance" class="tab-content">
         <h2>Mark Attendance & Fees</h2>
         <form id="fee-form" onsubmit="event.preventDefault();">
@@ -301,7 +297,6 @@
             </div>
             <div class="form-group">
                 <label>Student Name or Contact Number</label>
-                <!-- Datalist එක සම්බන්ධ කර ඇත -->
                 <input type="text" id="fee-search" list="students-list" required placeholder="Type student name or contact number...">
                 <datalist id="students-list"></datalist>
             </div>
@@ -329,7 +324,6 @@
         <div id="fee-status" class="status-msg"></div>
     </div>
 
-    <!-- EXPENSES TAB -->
     <div id="expenses" class="tab-content">
         <h2>Daily Expenses Logger</h2>
         <form id="expense-form" onsubmit="handleExpense(event)">
@@ -347,7 +341,8 @@
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6yNXeXo9-MjyLcXUzx-ngflzz_D6vux7edrDZJwTvayHN5kYMNiHAuR9nyj6sg4gNTA/exec';
+        // ඔයා ලබාදුන් නවතම Apps Script URL එක මෙතනට Update කරන ලදී
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGEmE5x4nwp3VShHJ1BJIgAl_eN0aMLbLwyZEJCBNhlVTMug2oZ99h1ANuVwQB3rklGQ/exec';
 
         let appData = {
             dailyIncome: 0,
@@ -356,43 +351,37 @@
             monthlyExpense: 0
         };
 
-        // Google Sheet එකෙන් ගන්නා සිසුන්ගේ ලැයිස්තුව මතක තබා ගැනීමට
         let globalStudentsList = [];
 
         window.addEventListener('DOMContentLoaded', () => {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('fee-date').value = today;
-            // ඇප් එක Load වෙද්දීම දැනට ඉන්න සිසුන් ලැයිස්තුව Sheet එකෙන් කියවා ගනී
             fetchRegisteredStudents();
         });
 
-        // Google Sheet එකෙන් සිසුන්ගේ දත්ත කියවා Datalist එකට එකතු කිරීම
         async function fetchRegisteredStudents() {
             try {
-                // සටහන: දත්ත කියවීමට GET රික්වෙස්ට් එකක් භාවිතා කරයි
                 const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getStudents`);
                 const data = await response.json();
                 if (data && Array.isArray(data)) {
                     globalStudentsList = data;
                     const datalist = document.getElementById('students-list');
-                    datalist.innerHTML = ''; // පැරණි දත්ත මකා දැමීම
+                    datalist.innerHTML = '';
                     
                     data.forEach(student => {
                         const option = document.createElement('option');
-                        // සෙවීමේ පහසුව සඳහා නම සහ දුරකථනය එකට පෙන්වයි
                         option.value = `${student.name} (${student.contact})`;
                         datalist.appendChild(option);
                     });
-                    console.log("Students loaded successfully.");
+                    console.log("Students loaded from Google Sheet.");
                 }
             } catch (error) {
                 console.error("Error fetching students list:", error);
             }
         }
 
-        // ඇතුලත් කල නම/දුරකථනය ලියාපදිංචි එකක්දැයි පරික්ෂා කිරීම
         function validateStudent(inputVal) {
-            if (globalStudentsList.length === 0) return true; // Sheet එක හිස්නම් ඕනෑම කෙනෙක් ඇතුලත් කිරීමට ඉඩ දෙයි
+            if (globalStudentsList.length === 0) return true;
             return globalStudentsList.some(student => {
                 const formatStr = `${student.name} (${student.contact})`;
                 return inputVal === formatStr || inputVal === student.name || inputVal === student.contact;
@@ -431,13 +420,12 @@
             document.getElementById('lbl-sir-share').innerText = sirShare.toFixed(2);
         }
 
-        // POST රික්වෙස්ට් හරහා දත්ත Google Sheet එකට බැකප් කිරීම (Cors Mode එක වෙනස් කර ඇත)
         async function sendToCloud(action, payload) {
             try {
-                // no-cors වෙනුවට නිවැරදිව දත්ත යැවීම තහවුරු කරගැනීමට සාමාන්‍ය fetch ක්‍රමය
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    mode: 'no-cors', // Apps Script redirect ගැටළු මඟහරවා ගැනීමට no-cors භාවිතා කරයි
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: action, data: payload })
                 });
                 return true;
@@ -471,7 +459,7 @@
                 status.innerText = "Successfully Registered & Synced with Google Sheet!";
                 status.style.color = "#ffffff";
                 document.getElementById('reg-form').reset();
-                fetchRegisteredStudents(); // අලුත් ශිෂ්‍යයා ඩේටාලිස්ට් එකට එක් කරගැනීමට රීෆ්‍රෙෂ් කරයි
+                setTimeout(fetchRegisteredStudents, 2000); // තත්පර 2කින් ලිස්ට් එක රීෆ්‍රෙෂ් කරයි
             }
         }
 
@@ -487,7 +475,6 @@
                 return;
             }
 
-            // ශිෂ්‍යයා ලියාපදිංචි දැයි පරික්ෂා කිරීමේ කොන්දේසිය
             if (!validateStudent(searchVal)) {
                 status.innerText = "Error: This student is not registered in the system!";
                 status.style.color = "#ff4444";
@@ -520,7 +507,6 @@
                 return;
             }
 
-            // ශිෂ්‍යයා ලියාපදිංචි දැයි පරික්ෂා කිරීමේ කොන්දේසිය
             if (!validateStudent(searchVal)) {
                 status.innerText = "Error: This student is not registered in the system!";
                 status.style.color = "#ff4444";
