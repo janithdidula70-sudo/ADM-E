@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADM Narammala - Tharidu Nimesh</title>
+    <title>ADM Narammala</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0d1117">
+    <meta name="theme-color" content="#6a11cb">
     <!-- jsPDF Library for Premium PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
@@ -16,15 +16,17 @@
             padding: 0;
         }
         body {
-            background: radial-gradient(circle at top, #161b22 0%, #0d1117 100%);
-            color: #c9d1d9;
+            /* වර්ණවත් Modern Gradient පසුබිම */
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #ffffff;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             padding: 25px;
             min-height: 100vh;
+            background-attachment: fixed;
         }
         header {
             text-align: center;
-            border-bottom: 1px solid rgba(240, 246, 252, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             padding-bottom: 25px;
             margin-bottom: 35px;
         }
@@ -33,11 +35,11 @@
             color: #ffffff;
             letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         header p {
             font-size: 1rem;
-            color: #8b949e;
+            color: rgba(255, 255, 255, 0.85);
             margin-top: 6px;
             font-weight: 300;
         }
@@ -49,9 +51,9 @@
             flex-wrap: wrap;
         }
         .tab-btn {
-            background-color: #21262d;
-            color: #c9d1d9;
-            border: 1px solid rgba(240, 246, 252, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 12px 24px;
             cursor: pointer;
             font-weight: 600;
@@ -59,23 +61,27 @@
             transition: all 0.2s ease-in-out;
             text-transform: uppercase;
             font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
         .tab-btn.active, .tab-btn:hover {
-            background-color: #f0f6fc;
-            color: #0d1117;
-            border-color: #f0f6fc;
-            box-shadow: 0 4px 12px rgba(255,255,255,0.15);
+            background-color: #ffffff;
+            color: #2575fc;
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         .tab-content {
             display: none;
             max-width: 950px;
             margin: 0 auto;
-            background: rgba(22, 27, 34, 0.8);
-            border: 1px solid rgba(240, 246, 252, 0.1);
+            /* Premium Glassmorphism Interface */
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             padding: 30px;
             border-radius: 12px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         .tab-content.active {
             display: block;
@@ -94,7 +100,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #f0f6fc;
+            color: #ffffff;
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 1px;
@@ -102,16 +108,26 @@
         input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select {
             width: 100%;
             padding: 14px;
-            background-color: #0d1117;
-            border: 1px solid #30363d;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
             font-size: 1rem;
             border-radius: 6px;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
-        input[type="text"]:focus, input[type="tel"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
-            border-color: #8b949e;
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        /* Select Dropdown එක ඇතුලත පෙනුම සකස් කිරීම */
+        select option {
+            background-color: #2575fc;
+            color: #ffffff;
+        }
+        input:focus, select:focus {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
         .checkbox-group {
             display: flex;
@@ -124,10 +140,10 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            background: #21262d;
+            background: rgba(255, 255, 255, 0.08);
             padding: 8px 16px;
             border-radius: 6px;
-            border: 1px solid rgba(240, 246, 252, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.2s ease;
         }
         .checkbox-item input {
@@ -135,15 +151,16 @@
             width: 18px;
             height: 18px;
         }
-        /* පන්ති එකක් හෝ කිහිපයක් ක්ලික් කල විට Highlight වන නව CSS කොටස */
+        /* පන්ති එකක් හෝ කිහිපයක් ක්ලික් කල විට පෙනෙන වර්ණවත් Highlight ස්වභාවය */
         .checkbox-item:has(input:checked) {
-            background-color: #f0f6fc;
-            color: #0d1117;
-            border-color: #f0f6fc;
+            background-color: #ffffff;
+            color: #6a11cb;
+            border-color: #ffffff;
             font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .checkbox-item:has(input:checked) input {
-            accent-color: #0d1117;
+            accent-color: #6a11cb;
         }
         .btn-container {
             display: flex;
@@ -152,7 +169,7 @@
         }
         .btn-submit {
             background-color: #ffffff;
-            color: #0d1117;
+            color: #6a11cb;
             border: 1px solid #ffffff;
             padding: 14px 28px;
             font-weight: bold;
@@ -162,20 +179,23 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
         .btn-submit:hover {
-            background-color: #0d1117;
+            background-color: transparent;
             color: #ffffff;
-            border-color: #8b949e;
+            border-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
         }
         .btn-secondary {
-            background-color: #21262d;
+            background-color: rgba(255, 255, 255, 0.15);
             color: #ffffff;
-            border: 1px solid #30363d;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: none;
         }
         .btn-secondary:hover {
-            background-color: #30363d;
-            border-color: #8b949e;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
         }
         .dashboard-grid {
             display: grid;
@@ -184,17 +204,19 @@
             margin-bottom: 30px;
         }
         .card {
-            background: #161b22;
-            border: 1px solid rgba(240, 246, 252, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 22px;
             text-align: center;
             border-radius: 8px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
         .card h3 {
             font-size: 0.85rem;
             text-transform: uppercase;
             margin-bottom: 12px;
-            color: #8b949e;
+            color: rgba(255, 255, 255, 0.75);
             letter-spacing: 1px;
         }
         .card p {
@@ -247,13 +269,13 @@
         </div>
 
         <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="card" style="border-color: rgba(255,255,255,0.2);">
+            <div class="card" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15);">
                 <h3>Institution Share (25%)</h3>
-                <p style="color: #ff7b72;">Rs. <span id="lbl-inst-share">0</span></p>
+                <p style="color: #ffb3b3; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">Rs. <span id="lbl-inst-share">0</span></p>
             </div>
-            <div class="card" style="border-color: rgba(255,255,255,0.2);">
+            <div class="card" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15);">
                 <h3>Tharidu Sir's Net Share (75%)</h3>
-                <p style="color: #58a6ff;">Rs. <span id="lbl-sir-share">0</span></p>
+                <p style="color: #b3d9ff; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">Rs. <span id="lbl-sir-share">0</span></p>
             </div>
         </div>
 
@@ -361,7 +383,6 @@
             document.getElementById('fee-date').value = today;
         });
 
-        // Event එක නිවැරදිව හසුරුවන පරිදි switchTab ශ්‍රිතය සකසා ඇත
         function switchTab(event, tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -377,7 +398,7 @@
             if (selectedClass === "11 Revision Combo") {
                 amount = 1700; 
             } else if (selectedClass === "2027 A/L Chemistry") {
-                amount = 2800;
+                amount = 2000;
             }
             
             document.getElementById('fee-amount').value = amount;
@@ -433,7 +454,7 @@
 
             if(success) {
                 status.innerText = "Successfully Registered & Synced with Google Sheet!";
-                status.style.color = "#58a6ff";
+                status.style.color = "#d4edf9";
                 document.getElementById('reg-form').reset();
             }
         }
@@ -458,7 +479,7 @@
 
             if(success) {
                 status.innerText = "Attendance successfully marked for " + searchVal;
-                status.style.color = "#58a6ff";
+                status.style.color = "#d4edf9";
                 document.getElementById('fee-search').value = "";
             }
         }
@@ -488,7 +509,7 @@
                 updateDashboardDOM();
 
                 status.innerText = "Fee payment parsed & saved to Cloud storage.";
-                status.style.color = "#58a6ff";
+                status.style.color = "#d4edf9";
                 document.getElementById('fee-search').value = "";
             }
         }
@@ -497,6 +518,7 @@
             e.preventDefault();
             const status = document.getElementById('expense-status');
             status.innerText = "Logging Expense...";
+            status.style.color = "#ffffff";
 
             const desc = document.getElementById('exp-desc').value;
             const amount = parseFloat(document.getElementById('exp-amount').value);
@@ -509,6 +531,7 @@
                 appData.monthlyExpense += amount;
                 updateDashboardDOM();
                 status.innerText = "Expense logged accurately.";
+                status.style.color = "#d4edf9";
                 document.getElementById('expense-form').reset();
             }
         }
@@ -517,7 +540,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFillColor(13, 17, 23);
+            doc.setFillColor(106, 17, 203);
             doc.rect(0, 0, 210, 40, 'F');
             
             doc.setTextColor(255, 255, 255);
@@ -547,7 +570,7 @@
                     ['Tharidu Nimesh Sir Net Payable (75%)', `Rs. ${sirShare}.00`]
                 ],
                 theme: 'striped',
-                headStyles: { fillColor: [13, 17, 23], textColor: [255, 255, 255] }
+                headStyles: { fillColor: [106, 17, 203], textColor: [255, 255, 255] }
             });
 
             doc.save(`Tharidu_Sir_Paysheet_${new Date().toISOString().slice(0,10)}.pdf`);
