@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ADM Narammala </title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        header p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #ffffff;
+            padding: 25px;
+            border-radius: 0px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus, select:focus {
+            box-shadow: 0 0 5px #ffffff;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .checkbox-item input {
+            accent-color: #ffffff;
+            width: 18px;
+            height: 18px;
+        }
+        .btn-submit {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
+            padding: 12px 24px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ffffff;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #ffffff;
+            color: #000000;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            border: 1px solid #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .card h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+        .card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .status-msg {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Tharidu Nimesh</h1>
+        <p>Science Class Management System | ADM Class Portal</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="tab-btn" onclick="switchTab('register')">Registration</button>
+        <button class="tab-btn" onclick="switchTab('attendance')">Attendance & Fees</button>
+        <button class="tab-btn" onclick="switchTab('expenses')">Expenses</button>
+    </div>
+
+    <div id="dashboard" class="tab-content active">
+        <h2>Financial Summary & Reports</h2>
+        <br>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Daily Gross Income</h3>
+                <p>Rs. <span id="lbl-daily-income">0</span></p>
+            </div>
+            <div class="card">
+                <h3>Daily Expenses</h3>
+                <p>Rs. <span id="lbl-daily-expense">0</span></p>
+            </div>
+            <div class="card">
+                <h3>Monthly Total Income</h3>
+                <p>Rs. <span id="lbl-monthly-income">0</span></p>
+            </div>
+            <div class="card">
+                <h3>Monthly Expenses</h3>
+                <p>Rs. <span id="lbl-monthly-expense">0</span></p>
+            </div>
+        </div>
+
+        <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="card" style="border-style: dashed;">
+                <h3>Institution Share (25%)</h3>
+                <p>Rs. <span id="lbl-inst-share">0</span></p>
+            </div>
+            <div class="card" style="border-style: dashed;">
+                <h3>Tharidu Sir's Net Share (75%)</h3>
+                <p>Rs. <span id="lbl-sir-share">0</span></p>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="downloadPaysheetPDF()">Download Complete Paysheet Report (PDF)</button>
+    </div>
+
+    <div id="register" class="tab-content">
+        <h2>Student Registration</h2>
+        <br>
+        <form id="reg-form" onsubmit="handleRegistration(event)">
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" id="reg-name" required placeholder="Enter Full Name">
+            </div>
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input type="tel" id="reg-contact" required placeholder="e.g., 077XXXXXXXX">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="reg-address" required placeholder="Enter Address">
+            </div>
+            <div class="form-group">
+                <label>Select Grades / Classes</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="09"> Grade 09</label>
+                    <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="10"> Grade 10</label>
+                    <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="11"> Grade 11</label>
+                    <label class="checkbox-item"><input type="checkbox" name="reg-grade" value="11 Revision"> 11 Revision</label>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">Register Student & Save to Cloud</button>
+        </form>
+        <div id="reg-status" class="status-msg"></div>
+    </div>
+
+    <div id="attendance" class="tab-content">
+        <h2>Mark Attendance & Fees</h2>
+        <br>
+        <form id="fee-form" onsubmit="handleAttendanceFee(event)">
+            <div class="form-group">
+                <label>Student Contact/ID</label>
+                <input type="text" id="fee-search" required placeholder="Enter Student Contact Number to identify">
+            </div>
+            <div class="form-group">
+                <label>Select Attending Class</label>
+                <select id="fee-class" onchange="autoCalculateFee()">
+                    <option value="09">Grade 09 (Theory)</option>
+                    <option value="10">Grade 10 (Theory)</option>
+                    <option value="11">Grade 11 (Theory)</option>
+                    <option value="11 Revision Only">11 Revision (Only)</option>
+                    <option value="11 Revision Combo">11 Revision (For Theory Students)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Fee Amount (Rs.)</label>
+                <input type="number" id="fee-amount" value="1200" readonly>
+            </div>
+            <button type="submit" class="btn-submit">Mark Present & Record Payment</button>
+        </form>
+        <div id="fee-status" class="status-msg"></div>
+    </div>
+
+    <div id="expenses" class="tab-content">
+        <h2>Daily Expenses Logger</h2>
+        <br>
+        <form id="expense-form" onsubmit="handleExpense(event)">
+            <div class="form-group">
+                <label>Expense Description</label>
+                <input type="text" id="exp-desc" required placeholder="e.g., Printing Papers, Electricity">
+            </div>
+            <div class="form-group">
+                <label>Amount (Rs.)</label>
+                <input type="number" id="exp-amount" required placeholder="Enter Amount">
+            </div>
+            <button type="submit" class="btn-submit">Log Expense</button>
+        </form>
+        <div id="expense-status" class="status-msg"></div>
+    </div>
+
+    <script>
+        // Integrated Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6yNXeXo9-MjyLcXUzx-ngflzz_D6vux7edrDZJwTvayHN5kYMNiHAuR9nyj6sg4gNTA/exec';
+
+        let appData = {
+            dailyIncome: 0,
+            dailyExpense: 0,
+            monthlyIncome: 0,
+            monthlyExpense: 0
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            updateDashboardDOM();
+        }
+
+        function autoCalculateFee() {
+            const selectedClass = document.getElementById('fee-class').value;
+            let amount = 1200; 
+            if (selectedClass === "11 Revision Combo") {
+                amount = 1700; 
+            }
+            document.getElementById('fee-amount').value = amount;
+        }
+
+        function updateDashboardDOM() {
+            document.getElementById('lbl-daily-income').innerText = appData.dailyIncome;
+            document.getElementById('lbl-daily-expense').innerText = appData.dailyExpense;
+            document.getElementById('lbl-monthly-income').innerText = appData.monthlyIncome;
+            document.getElementById('lbl-monthly-expense').innerText = appData.monthlyExpense;
+
+            const instShare = appData.monthlyIncome * 0.25;
+            const sirShare = appData.monthlyIncome * 0.75;
+
+            document.getElementById('lbl-inst-share').innerText = instShare.toFixed(2);
+            document.getElementById('lbl-sir-share').innerText = sirShare.toFixed(2);
+        }
+
+        async function sendToCloud(action, payload) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: action, data: payload })
+                });
+                return true;
+            } catch (error) {
+                console.error("Cloud sync failed:", error);
+                return false;
+            }
+        }
+
+        async function handleRegistration(e) {
+            e.preventDefault();
+            const status = document.getElementById('reg-status');
+            status.innerText = "Processing...";
+
+            const name = document.getElementById('reg-name').value;
+            const contact = document.getElementById('reg-contact').value;
+            const address = document.getElementById('reg-address').value;
+            const grades = Array.from(document.querySelectorAll('input[name="reg-grade"]:checked')).map(cb => cb.value);
+
+            if(grades.length === 0) {
+                status.innerText = "Please select at least one grade.";
+                return;
+            }
+
+            const student = { name, contact, address, grades: grades.join(', '), date: new Date().toLocaleDateString() };
+            const success = await sendToCloud('register', student);
+
+            if(success) {
+                status.innerText = "Successfully Registered & Synced with Cloud!";
+                document.getElementById('reg-form').reset();
+            } else {
+                status.innerText = "Saved locally, pending cloud connection.";
+            }
+        }
+
+        async function handleAttendanceFee(e) {
+            e.preventDefault();
+            const status = document.getElementById('fee-status');
+            status.innerText = "Processing...";
+
+            const contact = document.getElementById('fee-search').value;
+            const className = document.getElementById('fee-class').value;
+            const fee = parseFloat(document.getElementById('fee-amount').value);
+
+            const tx = { contact, className, fee, timestamp: new Date().toLocaleString() };
+            const success = await sendToCloud('attendance_fee', tx);
+
+            if(success) {
+                appData.dailyIncome += fee;
+                appData.monthlyIncome += fee;
+                updateDashboardDOM();
+                status.innerText = "Attendance marked & Fee payment complete.";
+                document.getElementById('fee-form').reset();
+                autoCalculateFee();
+            }
+        }
+
+        async function handleExpense(e) {
+            e.preventDefault();
+            const status = document.getElementById('expense-status');
+            status.innerText = "Logging...";
+
+            const desc = document.getElementById('exp-desc').value;
+            const amount = parseFloat(document.getElementById('exp-amount').value);
+
+            const expense = { desc, amount, timestamp: new Date().toLocaleString() };
+            const success = await sendToCloud('expense', expense);
+
+            if(success) {
+                appData.dailyExpense += amount;
+                appData.monthlyExpense += amount;
+                updateDashboardDOM();
+                status.innerText = "Expense logged accurately.";
+                document.getElementById('expense-form').reset();
+            }
+        }
+
+        function downloadPaysheetPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFillColor(0, 0, 0);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.text("THARIDU NIMESH - SCIENCE CLASS", 15, 25);
+            doc.setFontSize(10);
+            doc.text("ADM INSTITUTION MANAGEMENT PAY_SHEET", 15, 33);
+
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(14);
+            doc.text(`Statement Generated Date: ${new Date().toLocaleDateString()}`, 15, 55);
+
+            const instShare = appData.monthlyIncome * 0.25;
+            const sirShare = appData.monthlyIncome * 0.75;
+            const netProfit = appData.monthlyIncome - appData.monthlyExpense;
+
+            doc.autoTable({
+                startY: 65,
+                head: [['Financial Parameters', 'Amount (LKR)']],
+                body: [
+                    ['Daily Collected Revenue', `Rs. ${appData.dailyIncome}.00`],
+                    ['Daily Operations Cost', `Rs. ${appData.dailyExpense}.00`],
+                    ['Gross Monthly Revenue', `Rs. ${appData.monthlyIncome}.00`],
+                    ['Gross Monthly Cost', `Rs. ${appData.monthlyExpense}.00`],
+                    ['Net Monthly Revenue (Before Inst. Share)', `Rs. ${netProfit}.00`],
+                    ['Institution Commission Contribution (25%)', `Rs. ${instShare}.00`],
+                    ['Tharidu Nimesh Sir Net Payable (75%)', `Rs. ${sirShare}.00`]
+                ],
+                theme: 'striped',
+                headStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] },
+                styles: { font: 'courier', lineColor: [0, 0, 0], lineWidth: 0.5 }
+            });
+
+            doc.save(`Tharidu_Sir_Paysheet_${new Date().toISOString().slice(0,10)}.pdf`);
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    console.log('ServiceWorker initialization success: ', reg.scope);
+                }).catch(err => {
+                    console.error('ServiceWorker setup failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
